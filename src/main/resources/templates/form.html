@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https:\\www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill in details here!</title>
+</head>
+<body>
+    <h1>Please fill in your details</h1>
+
+    <form action="#" 
+    th:action="@{/contact}" 
+    th:object="${contactObj}" 
+    method="post">
+        <p> 
+            <!-- the * refereces to the object in this form, in this case is generate-->
+            
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" name="name" /><br>
+            
+            <label for="contactNumber">Contact Number</label>
+            <input type="text" th:field="*{contactNumber}" id="contactNumber" name="contactNumber"/><br>
+            
+            <label for="emailAddress">Email Address</label>
+            <input type="text" th:field="*{emailAddress}" id="emailAddress" name="emailAddress"/><br>
+      
+        </p>
+        <input type="submit" value="Submit"/>
+</body>
+</html>
