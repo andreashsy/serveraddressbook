@@ -21,25 +21,13 @@ public class FirstVersionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FirstVersionApplication.class, args);
 
-		// get args
+		// check if command line argument is run
 		DefaultApplicationArguments appArgs = new DefaultApplicationArguments(args);
 		pathList = appArgs.getOptionValues("dataDir");
 		if (pathList == null) {
 			System.out.println("Please specify a directory with --dataDir=<directory path> option!");
 			System.exit(1);
 		}
-		/*
-		String pathStr = (String) pathList.get(0);
-		logger.info("Path is : " + pathStr);
-		Path path = Paths.get(pathStr);
-
-		if (!Files.isDirectory(path)) {
-			new File(pathStr).mkdirs();
-			logger.info("Path does not exist, created " + pathStr);
-		} else {
-			logger.info("Path " + pathStr + " exists!");
-		}
-		*/
 
 	}
 

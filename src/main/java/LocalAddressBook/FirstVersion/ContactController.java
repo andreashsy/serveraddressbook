@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +36,14 @@ public class ContactController {
         //save contact information to file
         Contacts contacts = new Contacts();
         contacts.saveFile(applicationArguments, model, contact);
-        
-        
-
-
         return "result";
     }
     
-
+    @GetMapping("/users/{id}")
+    public String getContact(@PathVariable String id, Model model) {
+        logger.info("Contact id is: " + id);
+        Contacts ct = new Contacts();
+        ct.loadFile(applicationArguments, model, id);
+        return "showcontact";
+    }
 }

@@ -1,7 +1,9 @@
 package LocalAddressBook.FirstVersion;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,7 +79,47 @@ public class Contacts {
         
     }
 
-    public void readFile(String id) {
-        
-    }
+    public void loadFile(ApplicationArguments applicationArguments, Model model, String id) {
+        // loads the path
+        List pathList = applicationArguments.getOptionValues("dataDir");
+        String pathStr = (String) pathList.get(0);
+        logger.info("Path is : " + pathStr);
+        String idPath = pathStr + "/" + id + "/" + this.path;
+        Path path = Paths.get(idPath);
+
+        // check if id exists
+        if (!Files.isDirectory(path)) {
+			logger.info("Path does not exist: " + idPath);
+            System.exit(1);
+		} else {
+			logger.info("Path " + idPath + " exists!");
+        }
+
+        Contact cn = new Contact();
+
+        //read file
+        String fileName = idPath + "/" + id + ".txt";
+        try {
+            try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+            
+                while (line != null) {
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    line = br.readLine();
+                }
+                String everything = sb.toString();
+                logger.info(everything);
+                String[] contactData = everything.split(System.lineSeparator());
+                cn.setName(contactData[0]);
+                cn.setEmailAddress(contactData[1]);
+                cn.setContactNumber(contactData[2]);
+                model.addAttribute("contact", cn);
+
+            }
+        } catch (Exception e) {
+            logger.info("Error, exception");
+        }
+}
 }
