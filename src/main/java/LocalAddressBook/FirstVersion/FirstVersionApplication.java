@@ -28,7 +28,7 @@ public class FirstVersionApplication {
 			System.out.println("Please specify a directory with --dataDir=<directory path> option!");
 			System.exit(1);
 		}
-
+		/*
 		String pathStr = (String) pathList.get(0);
 		logger.info("Path is : " + pathStr);
 		Path path = Paths.get(pathStr);
@@ -39,6 +39,7 @@ public class FirstVersionApplication {
 		} else {
 			logger.info("Path " + pathStr + " exists!");
 		}
+		*/
 
 	}
 

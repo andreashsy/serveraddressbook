@@ -1,6 +1,8 @@
 package LocalAddressBook.FirstVersion;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,9 @@ import org.slf4j.LoggerFactory;
 public class ContactController {
     Logger logger = LoggerFactory.getLogger(ContactController.class);
 
+    @Autowired
+    ApplicationArguments applicationArguments;
+
     @GetMapping("/")
     public String showContactForm(Model model) {
         Contact contact = new Contact();
@@ -30,14 +35,9 @@ public class ContactController {
         logger.info("Received from the form: " + contact.getEmailAddress());
         logger.info("Received from the form: " + contact.getContactNumber());
 
-        //generate hexadecimal id number
-        Random rng = new Random();
-        int firstSerialNumber = rng.nextInt(65535);
-        int secondSerialNumber = rng.nextInt(65535);
-        String id = Integer.toHexString(firstSerialNumber) + Integer.toHexString(secondSerialNumber);
-        logger.info("ID is: " + id);
-
         //save contact information to file
+        Contacts contacts = new Contacts();
+        contacts.saveFile(applicationArguments, model, contact);
         
         
 
