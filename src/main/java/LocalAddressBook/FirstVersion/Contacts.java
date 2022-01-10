@@ -41,7 +41,7 @@ public class Contacts {
         return this.path;
     }
 
-    public void saveFile(ApplicationArguments applicationArguments, Model model, Contact contact) {
+    public void saveFile(ApplicationArguments applicationArguments, Contact contact) {
         //generate hexadecimal id number
         Random rng = new Random();
         int firstSerialNumber = rng.nextInt(65535);

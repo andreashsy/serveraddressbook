@@ -35,7 +35,7 @@ public class ContactController {
 
         //save contact information to file
         Contacts contacts = new Contacts();
-        contacts.saveFile(applicationArguments, model, contact);
+        contacts.saveFile(applicationArguments, contact);
         return "result";
     }
     
