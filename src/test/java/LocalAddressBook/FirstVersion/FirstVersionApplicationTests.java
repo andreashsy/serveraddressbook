@@ -16,7 +16,7 @@ class FirstVersionApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+/*
 	@Test
 	public void testSave() {
 		Contacts contacts = new Contacts();
@@ -26,5 +26,5 @@ class FirstVersionApplicationTests {
 		contact.setName("testname");
 		contacts.saveFile(applicationArguments, contact);
 	}
-
+*/
 }
