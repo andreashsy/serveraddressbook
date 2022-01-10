@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.ui.Model;
 
+import LocalAddressBook.FirstVersion.model.Contact;
+
 public class Contacts {
     Logger logger = LoggerFactory.getLogger(Contacts.class);
     private String path = "";

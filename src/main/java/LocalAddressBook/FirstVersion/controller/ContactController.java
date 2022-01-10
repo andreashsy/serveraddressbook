@@ -1,4 +1,4 @@
-package LocalAddressBook.FirstVersion;
+package LocalAddressBook.FirstVersion.controller;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import LocalAddressBook.FirstVersion.Contacts;
+import LocalAddressBook.FirstVersion.ContactsRedis;
+import LocalAddressBook.FirstVersion.model.Contact;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +22,7 @@ public class ContactController {
     Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
-    ApplicationArguments applicationArguments;
+    ContactsRedis ctc;
 
     @GetMapping("/")
     public String showContactForm(Model model) {
@@ -34,16 +38,22 @@ public class ContactController {
         logger.info("Received from the form: " + contact.getContactNumber());
 
         //save contact information to file
-        Contacts contacts = new Contacts();
-        contacts.saveFile(applicationArguments, contact);
+        ContactsRedis ctc = new ContactsRedis();
+        ctc.save(contact);
+        model.addAttribute("contact", ctc);
+        // Contacts contacts = new Contacts();
+        // contacts.saveFile(applicationArguments, contact);
         return "result";
     }
     
     @GetMapping("/users/{id}")
     public String getContact(@PathVariable String id, Model model) {
         logger.info("Contact id is: " + id);
-        Contacts ct = new Contacts();
-        ct.loadFile(applicationArguments, model, id);
+        ContactsRedis ctc = new ContactsRedis();
+        ctc.findById(id);
+        // Contacts ct = new Contacts();
+        // ct.loadFile(applicationArguments, model, id);
+        model.addAttribute("contact", ctc);
         return "showcontact";
     }
 }

@@ -1,4 +1,4 @@
-package LocalAddressBook.FirstVersion;
+package LocalAddressBook.FirstVersion.model;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ public class Contact implements Serializable{
     private String name;
     private String contactNumber;
     private String emailAddress;
+    private String id;
 
     public void setName(String name) {
         this.name = name;
@@ -29,4 +30,12 @@ public class Contact implements Serializable{
      public String getEmailAddress() {
          return this.emailAddress;
      }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return this.id;
+    }
 }
