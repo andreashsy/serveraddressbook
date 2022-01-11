@@ -36,22 +36,19 @@ public class ContactController {
         logger.info("Received from the form: " + contact.getContactNumber());
 
         //save contact information to file
-        ContactsRedis ctc = new ContactsRedis();
-        String data = ctc.toConcatList(contact);
-        ctc.save(data);
+        ctc.save(contact);
         return "result";
     }
     
     @GetMapping("/users/{id}")
     public String getContact(@PathVariable String id, Model model) {
         logger.info("Contact id is: " + id);
-        ContactsRedis ctc = new ContactsRedis();
-        String dataStr = ctc.findById(id);
-        String[] data = dataStr.split(",,,,,");
+        Contact data = ctc.findById(id);
+        //String[] data = dataStr.split(",,,,,");
         Contact contact = new Contact();
-        contact.setName(data[0]);
-        contact.setContactNumber(data[1]);
-        contact.setEmailAddress(data[2]);
+        contact.setName(data.getName());
+        contact.setContactNumber(data.getContactNumber());
+        contact.setEmailAddress(data.getEmailAddress());
         model.addAttribute("contact", contact);
         return "showcontact";
     }

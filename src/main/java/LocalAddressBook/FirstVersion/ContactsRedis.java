@@ -20,10 +20,11 @@ public class ContactsRedis implements ContactsRepo{
     private final String DELIM = ",,,,,";
 
     @Autowired
-    RedisTemplate<String, String> template;
+    @Qualifier("mainBean")
+    RedisTemplate<String, Object> template;
 
     @Override 
-    public void save(final String data) { 
+    public void save(final Object contact) { 
         //generate hexadecimal id number
         Random rng = new Random();
         int firstSerialNumber = rng.nextInt(65535);
@@ -31,29 +32,22 @@ public class ContactsRedis implements ContactsRepo{
         String id = Integer.toHexString(firstSerialNumber) + Integer.toHexString(secondSerialNumber);
         logger.info("ID is: " + id);
 
-        template.opsForValue().set(id, data);
+        template.opsForValue().set(id, contact);
     }
 
     @Override 
-    public String findById(String id) {
-        return template.opsForValue().get(id);
+    public Contact findById(String id) {
+        return (Contact)template.opsForValue().get(id);
     }
 
     @Override 
-    public List<String> findAll() {
+    public List<Object> findAll() {
         return template.opsForList().range(CONTACT_CACHE, 0, -1);
     }
 
     @Override 
     public void delete(String id) {
         template.delete(id);
-    }
-
-    @Override
-    public String toConcatList(Contact ctc) {
-        String data = ctc.getName() + DELIM + ctc.getContactNumber() + DELIM + ctc.getEmailAddress();
-        logger.info("Data is: " + data);
-        return data;
     }
 
 }
