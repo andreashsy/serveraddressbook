@@ -44,7 +44,6 @@ public class ContactController {
     public String getContact(@PathVariable String id, Model model) {
         logger.info("Contact id is: " + id);
         Contact data = ctc.findById(id);
-        //String[] data = dataStr.split(",,,,,");
         Contact contact = new Contact();
         contact.setName(data.getName());
         contact.setContactNumber(data.getContactNumber());
